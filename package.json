@@ -68,7 +68,7 @@
     "viem": "^2.21.55",
     "wagmi": "^2.14.3",
     "zod": "^3.24.1",
-    "mipd": "^1.0.0"
+    "mipd": "0.0.7"
   },
   "devDependencies": {
     "@types/node": "^20",
