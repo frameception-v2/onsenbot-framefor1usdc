@@ -18,7 +18,7 @@ import { parseUnits } from 'viem';
 import { truncateAddress } from "~/lib/truncateAddress";
 import { base, optimism } from "wagmi/chains";
 import { useSession } from "next-auth/react";
-import { createStore } from "mipd";
+import { createStore } from "mipd@0.0.7";
 import { Label } from "~/components/ui/label";
 import { PROJECT_TITLE } from "~/lib/constants";
 
