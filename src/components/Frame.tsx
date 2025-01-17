@@ -8,7 +8,7 @@ import sdk, {
 } from "@farcaster/frame-sdk";
 import { encodeFunctionData } from 'viem';
 import { useAccount } from 'wagmi';
-import { createStore } from 'mipd';
+import { createStore } from 'mipd@0.0.7';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "~/components/ui/card";
 import { config } from "~/components/providers/WagmiProvider";
 import { PurpleButton } from "~/components/ui/PurpleButton";
@@ -164,7 +164,12 @@ export default function Frame(
   }, [isSDKLoaded, addFrame]);
 
   if (!isSDKLoaded) {
-    return <div>Loading...</div>;
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-purple-600"></div>
+        <span className="ml-4 text-purple-600 text-xl">Loading Onsen Magic...</span>
+      </div>
+    );
   }
 
   return (
