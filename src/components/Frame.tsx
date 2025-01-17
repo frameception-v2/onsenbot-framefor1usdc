@@ -7,9 +7,11 @@ import sdk, {
   type Context,
 } from "@farcaster/frame-sdk";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "~/components/ui/card";
-
 import { config } from "~/components/providers/WagmiProvider";
 import { PurpleButton } from "~/components/ui/PurpleButton";
+import { useAccount, useSendTransaction, useWaitForTransactionReceipt } from 'wagmi';
+import { USDC_CONTRACT, RECIPIENT } from '~/lib/constants';
+import { parseUnits } from 'viem';
 import { truncateAddress } from "~/lib/truncateAddress";
 import { base, optimism } from "wagmi/chains";
 import { useSession } from "next-auth/react";
@@ -17,19 +19,55 @@ import { createStore } from "mipd";
 import { Label } from "~/components/ui/label";
 import { PROJECT_TITLE } from "~/lib/constants";
 
-function ExampleCard() {
+function SendUSDC() {
+  const { isConnected } = useAccount();
+  const { data: hash, sendTransaction, isPending } = useSendTransaction();
+  const { isLoading: isConfirming, isSuccess: isConfirmed } = useWaitForTransactionReceipt({ 
+    hash,
+  });
+
+  const handleSend = () => {
+    sendTransaction({
+      to: RECIPIENT,
+      value: parseUnits('0', 6), // 0 ETH value
+      data: encodeFunctionData({
+        abi: [
+          {
+            name: 'transfer',
+            type: 'function',
+            stateMutability: 'nonpayable',
+            inputs: [
+              { name: 'to', type: 'address' },
+              { name: 'value', type: 'uint256' }
+            ],
+            outputs: [{ name: '', type: 'bool' }]
+          }
+        ],
+        functionName: 'transfer',
+        args: [RECIPIENT, parseUnits('1', 6)] // 1 USDC
+      })
+    });
+  };
+
   return (
     <Card className="border-neutral-200 bg-white">
       <CardHeader>
-        <CardTitle className="text-neutral-900">Welcome to the Frame Template</CardTitle>
+        <CardTitle className="text-neutral-900">Send 1 USDC</CardTitle>
         <CardDescription className="text-neutral-600">
-          This is an example card that you can customize or remove
+          Send 1 USDC to hellno.eth on Base
         </CardDescription>
       </CardHeader>
       <CardContent className="text-neutral-800">
-        <p>
-          Your frame content goes here. The text is intentionally dark to ensure good readability.
-        </p>
+        <PurpleButton 
+          onClick={handleSend}
+          disabled={!isConnected || isPending}
+        >
+          {isPending ? 'Sending...' : 'Send 1 USDC'}
+        </PurpleButton>
+        
+        {hash && <div className="mt-2 text-sm">Transaction Hash: {truncateAddress(hash)}</div>}
+        {isConfirming && <div className="mt-2 text-sm">Confirming...</div>}
+        {isConfirmed && <div className="mt-2 text-sm">Transaction confirmed!</div>}
       </CardContent>
     </Card>
   );
@@ -137,7 +175,7 @@ export default function Frame(
     >
       <div className="w-[300px] mx-auto py-2 px-2">
         <h1 className="text-2xl font-bold text-center mb-4 text-neutral-900">{title}</h1>
-        <ExampleCard />
+        <SendUSDC />
       </div>
     </div>
   );
