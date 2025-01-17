@@ -7,7 +7,6 @@ import sdk, {
   type Context,
 } from "@farcaster/frame-sdk";
 import { encodeFunctionData } from 'viem';
-import { useAccount } from 'wagmi';
 import { createStore } from 'mipd@0.0.7';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "~/components/ui/card";
 import { config } from "~/components/providers/WagmiProvider";
