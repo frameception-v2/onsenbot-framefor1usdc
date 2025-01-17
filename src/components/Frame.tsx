@@ -6,18 +6,16 @@ import sdk, {
   SignIn as SignInCore,
   type Context,
 } from "@farcaster/frame-sdk";
-import { encodeFunctionData } from 'viem';
+import { encodeFunctionData, parseUnits } from 'viem';
 import { createStore } from 'mipd@0.0.7';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "~/components/ui/card";
 import { config } from "~/components/providers/WagmiProvider";
 import { PurpleButton } from "~/components/ui/PurpleButton";
 import { useAccount, useSendTransaction, useWaitForTransactionReceipt } from 'wagmi';
 import { USDC_CONTRACT, RECIPIENT } from '~/lib/constants';
-import { parseUnits } from 'viem';
 import { truncateAddress } from "~/lib/truncateAddress";
 import { base, optimism } from "wagmi/chains";
 import { useSession } from "next-auth/react";
-import { createStore } from "mipd@0.0.7";
 import { Label } from "~/components/ui/label";
 import { PROJECT_TITLE } from "~/lib/constants";
 
