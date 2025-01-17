@@ -7,7 +7,7 @@ import sdk, {
   type Context,
 } from "@farcaster/frame-sdk";
 import { encodeFunctionData, parseUnits } from 'viem';
-import { createStore } from 'mipd@0.0.7';
+import { createStore } from 'mipd';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "~/components/ui/card";
 import { config } from "~/components/providers/WagmiProvider";
 import { PurpleButton } from "~/components/ui/PurpleButton";
