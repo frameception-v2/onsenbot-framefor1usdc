@@ -182,8 +182,18 @@ export default function Frame(
       }}
     >
       <div className="w-[300px] mx-auto py-2 px-2">
-        <h1 className="text-2xl font-bold text-center mb-4 text-neutral-900">{title}</h1>
-        <SendUSDC />
+        <h1 className="text-2xl font-bold text-center mb-4 text-neutral-900 bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent animate-gradient">
+          {title}
+        </h1>
+        <div className="relative">
+          <div className="absolute -inset-1 bg-gradient-to-r from-purple-600 to-pink-600 rounded-lg blur opacity-75 animate-pulse"></div>
+          <div className="relative bg-white rounded-lg p-4">
+            <SendUSDC />
+          </div>
+        </div>
+        <div className="mt-4 text-center text-neutral-600">
+          <span className="animate-bounce">♨️</span> Powered by Onsen ♨️
+        </div>
       </div>
     </div>
   );
